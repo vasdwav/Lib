@@ -2971,9 +2971,11 @@ function Library:GetIcon(index)
         end
     end
 
-    -- Add support for Imgur album links
+    -- Add support for Imgur album and direct image links
     if index:find("imgur.com/a/") then
         return index:gsub("imgur.com/a/", "i.imgur.com/") .. ".png"
+    elseif index:find("imgur.com/") then
+        return index:gsub("imgur.com/", "i.imgur.com/") .. ".png"
     end
 
     return firstMatch or index
