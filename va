@@ -1592,7 +1592,7 @@ do
 
     function Funcs:AddDivider()
         local Groupbox = self;
-        local Container = self.Container
+        local Container = Groupbox.Container
 
         local Divider = {
             Type = 'Divider',
@@ -3012,16 +3012,21 @@ function Library:CreateWindow(...)
 
     if Config.Icon then
         local Icon = Library:GetIcon(Config.Icon)
-        local IconImage = Library:Create('ImageButton', { -- Changed to ImageButton for click functionality
+        local CircularIcon = Library:Create('ImageButton', {
             Image = Icon,
-            Size = UDim2.new(0, 30, 0, 30), -- Increased size
-            Position = UDim2.new(0, 5, 0, 2),
+            Size = UDim2.new(0, 50, 0, 50), -- Adjust size as needed
+            Position = UDim2.new(0, 10, 0, 10), -- Top-left corner with padding
             BackgroundTransparency = 1,
-            ZIndex = 1,
-            Parent = Inner,
+            ZIndex = 100, -- Ensure it appears above other UI elements
+            Parent = ScreenGui,
         })
 
-        IconImage.MouseButton1Click:Connect(function()
+        -- Make the icon circular
+        local UICorner = Instance.new("UICorner", CircularIcon)
+        UICorner.CornerRadius = UDim.new(1, 0) -- Fully circular
+
+        -- Add click functionality to copy the Discord link
+        CircularIcon.MouseButton1Click:Connect(function()
             setclipboard("https://discord.gg/xkYzren9AF") -- Replace with your Discord link
             Library:Notify("Discord link copied to clipboard!", 2)
         end)
