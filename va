@@ -3015,9 +3015,9 @@ function Library:CreateWindow(...)
         local IconImage = Library:Create('ImageButton', { -- Changed to ImageButton for click functionality
             Image = Icon,
             Size = UDim2.new(0, 5, 0, 5), -- Increased size
-            Position = UDim2.new(0, 50, 0, 2),
+            Position = UDim2.new(0, 50, -10, 2),
             BackgroundTransparency = 0.1,
-            ZIndex = 6,
+            ZIndex = 18,
             Parent = Outer,
         })
 
