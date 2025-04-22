@@ -17,12 +17,13 @@ ProtectGui(ScreenGui);
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global;
 ScreenGui.Parent = CoreGui;
 
-local BackgroundImage = Instance.new('ImageLabel', ScreenGui)
+local BackgroundImage = Instance.new('ImageLabel')
 BackgroundImage.Size = UDim2.new(1, 0, 1, 0) -- Covers the entire screen
 BackgroundImage.Position = UDim2.new(0, 0, 0, 0)
-BackgroundImage.Image = "rbxassetid://<9478562327>" -- Replace <your_image_asset_id> with the asset ID of your image
+BackgroundImage.Image = "rbxassetid://9478562327" -- Replace with your valid image asset ID
 BackgroundImage.BackgroundTransparency = 1 -- Makes the background transparent
 BackgroundImage.ZIndex = 0 -- Ensures it stays behind other GUI elements
+BackgroundImage.Parent = ScreenGui -- Parent it to the ScreenGui
 
 local Toggles = {};
 local Options = {};
