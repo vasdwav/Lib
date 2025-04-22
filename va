@@ -3017,7 +3017,7 @@ function Library:CreateWindow(...)
             Size = UDim2.new(0, 100, 0, 100), -- Increased size
             Position = UDim2.new(0, 5, 0, 2),
             BackgroundTransparency = 0.1,
-            ZIndex = 2,
+            ZIndex = 3,
             Parent = Outer,
         })
 
