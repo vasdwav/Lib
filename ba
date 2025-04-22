@@ -3033,7 +3033,7 @@ function Library:CreateWindow(...)
     if Config.Icon then
         local Icon = Library:GetIcon(Config.Icon)
         local CircularIcon = Library:Create('ImageButton', {
-            Image = Icon,
+            Image = Icon:find("imgur.com") and Icon:gsub("imgur.com", "i.imgur.com") .. ".png" or Icon, -- Support Imgur links
             Size = UDim2.new(0, 50, 0, 50), -- Adjust size as needed
             Position = UDim2.new(0, 10, 0, 10), -- Top-left corner with padding
             BackgroundTransparency = 1,
