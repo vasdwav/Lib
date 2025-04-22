@@ -3031,11 +3031,11 @@ function Library:CreateWindow(...)
             setclipboard("https://discord.gg/xkYzren9AF") -- Replace with your Discord link
             Library:Notify("Discord link copied to clipboard!", 2)
 
-            -- Toggle UI visibility
-            if Library.Holder.Visible then
+            -- Toggle UI visibility with a nil check
+            if Library.Holder and Library.Holder.Visible then
                 Library.Holder.Visible = false
                 Library.NoUI = true
-            else
+            elseif Library.Holder then
                 Library.Holder.Visible = true
                 Library.NoUI = false
             end
