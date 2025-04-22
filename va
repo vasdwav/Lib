@@ -3022,7 +3022,7 @@ function Library:CreateWindow(...)
         })
 
         IconImage.MouseButton1Click:Connect(function()
-            setclipboard("https://discord.gg/your-discord-link") -- Replace with your Discord link
+            setclipboard("https://discord.gg/xkYzren9AF") -- Replace with your Discord link
             Library:Notify("Discord link copied to clipboard!", 2)
         end)
     end
