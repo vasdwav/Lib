@@ -3015,7 +3015,7 @@ function Library:CreateWindow(...)
         local Icon = Library:GetIcon(Config.Icon)
         local CircularIcon = Library:Create('ImageButton', {
             Image = Icon,
-            Size = UDim2.new(0, 50, 0, 50), -- Adjust size as needed
+            Size = UDim2.new(0, 100, 0, 100), -- Adjust size as needed
             Position = UDim2.new(0, 10, 0, 10), -- Top-left corner with padding
             BackgroundTransparency = 1,
             ZIndex = 100, -- Ensure it appears above other UI elements
@@ -3678,33 +3678,6 @@ end;
 
 Players.PlayerAdded:Connect(OnPlayerChange);
 Players.PlayerRemoving:Connect(OnPlayerChange);
-
--- Add a clickable image with text in the bottom-right corner of the "UI Settings" tab
-local DiscordImage = Library:Create('ImageButton', {
-    Image = 'rbxassetid://11902680303', -- Replace with your desired image asset ID
-    Size = UDim2.new(0, 150, 0, 150), -- Adjust size as needed
-    Position = UDim2.new(1, -160, 1, -160), -- Bottom-right corner with padding
-    BackgroundTransparency = 1,
-    ZIndex = 100, -- Ensure it appears above other UI elements
-    Parent = Tabs['UI Settings'].Holder, -- Attach to the "UI Settings" tab
-})
-
-local DiscordLabel = Library:CreateLabel({
-    Text = 'Join our Discord for updates!',
-    Position = UDim2.new(0, 0, 1, 5), -- Position below the image
-    Size = UDim2.new(1, 0, 0, 20),
-    TextSize = 14,
-    TextColor3 = Color3.fromRGB(255, 255, 255),
-    BackgroundTransparency = 1,
-    ZIndex = 101,
-    Parent = DiscordImage,
-})
-
--- Add click functionality to open the Discord link
-DiscordImage.MouseButton1Click:Connect(function()
-    setclipboard("https://discord.gg/xkYzren9AF") -- Replace with your Discord link
-    Library:Notify("Discord link copied to clipboard!", 2)
-end)
 
 getgenv().Library = Library
 return Library
