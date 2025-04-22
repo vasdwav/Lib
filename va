@@ -3025,10 +3025,13 @@ function Library:CreateWindow(...)
         local UICorner = Instance.new("UICorner", CircularIcon)
         UICorner.CornerRadius = UDim.new(1, 0) -- Fully circular
 
-        -- Add click functionality to copy the Discord link
+        -- Add click functionality to toggle UI visibility and copy the Discord link
         CircularIcon.MouseButton1Click:Connect(function()
             setclipboard("https://discord.gg/xkYzren9AF") -- Replace with your Discord link
             Library:Notify("Discord link copied to clipboard!", 2)
+
+            -- Toggle UI visibility
+            Library.ScreenGui.Enabled = not Library.ScreenGui.Enabled
         end)
     end
 
