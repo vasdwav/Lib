@@ -2672,25 +2672,6 @@ do
         return Depbox;
     end;
 
-    function Funcs:AddImage(ImageId, Size, Position)
-        local Groupbox = self;
-        local Container = Groupbox.Container;
-
-        local Image = Library:Create('ImageButton', { -- Changed from ImageLabel to ImageButton
-            BackgroundTransparency = 1;
-            Image = ImageId; -- The asset ID of the image
-            Size = Size or UDim2.new(0, 100, 0, 100); -- Default size
-            Position = Position or UDim2.new(0, 0, 0, 0); -- Default position
-            ZIndex = 5;
-            Parent = Container;
-        });
-
-        Groupbox:AddBlank(5); -- Add spacing below the image
-        Groupbox:Resize();
-
-        return Image;
-    end;
-
     BaseGroupbox.__index = Funcs;
     BaseGroupbox.__namecall = function(Table, Key, ...)
         return Funcs[Key](...);
@@ -2952,16 +2933,16 @@ function Library:Notify(Text, Time)
 end;
 
 function Library:GetIcon(index)
-    if type(index) ~= "string" or #index == 0 then
-        return nil -- Return nil if index is not a valid string
-    end
-
-    if self.Icons and self.Icons[index] then
-        return self.Icons[index]
+    if type(index) ~= "string" or index:find("rbxassetid://") or #index == 0 then
+        return index
     end
 
     local firstMatch = nil
     index = string.lower(index):gsub("lucide", ""):gsub("-", "")
+
+    if self.Icons and self.Icons[index] then
+        return self.Icons[index]
+    end
 
     for Name, Icon in pairs(self.Icons or {}) do
         if Name == index then
@@ -2969,13 +2950,6 @@ function Library:GetIcon(index)
         elseif not firstMatch and Name:find(index, 1, true) then
             firstMatch = Icon
         end
-    end
-
-    -- Add support for Imgur album and direct image links
-    if index:find("imgur.com/a/") then
-        return index:gsub("imgur.com/a/", "i.imgur.com/") .. ".png"
-    elseif index:find("imgur.com/") then
-        return index:gsub("imgur.com/", "i.imgur.com/") .. ".png"
     end
 
     return firstMatch or index
@@ -2994,7 +2968,7 @@ function Library:CreateWindow(...)
 
     if type(Config.Title) ~= 'string' then Config.Title = 'No title' end
     if type(Config.TabPadding) ~= 'number' then Config.TabPadding = 0 end
-    if type(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 0.2 end
+    if type(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 1 end
 
     if typeof(Config.Position) ~= 'UDim2' then Config.Position = UDim2.fromOffset(175, 50) end
     if typeof(Config.Size) ~= 'UDim2' then Config.Size = UDim2.fromOffset(550, 600) end
@@ -3040,7 +3014,7 @@ function Library:CreateWindow(...)
     if Config.Icon then
         local Icon = Library:GetIcon(Config.Icon)
         local CircularIcon = Library:Create('ImageButton', {
-            Image = Icon:find("imgur.com") and Icon:gsub("imgur.com", "i.imgur.com") .. ".png" or Icon, -- Support Imgur links
+            Image = Icon,
             Size = UDim2.new(0, 50, 0, 50), -- Adjust size as needed
             Position = UDim2.new(0, 10, 0, 10), -- Top-left corner with padding
             BackgroundTransparency = 1,
@@ -3704,6 +3678,33 @@ end;
 
 Players.PlayerAdded:Connect(OnPlayerChange);
 Players.PlayerRemoving:Connect(OnPlayerChange);
+
+-- Add a clickable image with text in the bottom-right corner of the "UI Settings" tab
+local DiscordImage = Library:Create('ImageButton', {
+    Image = 'rbxassetid://11902680303', -- Replace with your desired image asset ID
+    Size = UDim2.new(0, 150, 0, 150), -- Adjust size as needed
+    Position = UDim2.new(1, -160, 1, -160), -- Bottom-right corner with padding
+    BackgroundTransparency = 1,
+    ZIndex = 100, -- Ensure it appears above other UI elements
+    Parent = Tabs['UI Settings'].Holder, -- Attach to the "UI Settings" tab
+})
+
+local DiscordLabel = Library:CreateLabel({
+    Text = 'Join our Discord for updates!',
+    Position = UDim2.new(0, 0, 1, 5), -- Position below the image
+    Size = UDim2.new(1, 0, 0, 20),
+    TextSize = 14,
+    TextColor3 = Color3.fromRGB(255, 255, 255),
+    BackgroundTransparency = 1,
+    ZIndex = 101,
+    Parent = DiscordImage,
+})
+
+-- Add click functionality to open the Discord link
+DiscordImage.MouseButton1Click:Connect(function()
+    setclipboard("https://discord.gg/xkYzren9AF") -- Replace with your Discord link
+    Library:Notify("Discord link copied to clipboard!", 2)
+end)
 
 getgenv().Library = Library
 return Library
