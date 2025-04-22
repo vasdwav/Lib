@@ -3025,6 +3025,23 @@ function Library:CreateWindow(...)
         local UICorner = Instance.new("UICorner", CircularIcon)
         UICorner.CornerRadius = UDim.new(1, 0) -- Fully circular
 
+        -- Define Show and Hide methods for the UI
+        local function ShowUI()
+            for _, child in ipairs(ScreenGui:GetChildren()) do
+                if child ~= CircularIcon then
+                    child.Visible = true
+                end
+            end
+        end
+
+        local function HideUI()
+            for _, child in ipairs(ScreenGui:GetChildren()) do
+                if child ~= CircularIcon then
+                    child.Visible = false
+                end
+            end
+        end
+
         -- Add click functionality to toggle UI visibility
         local isUIVisible = true
         CircularIcon.MouseButton1Click:Connect(function()
@@ -3032,12 +3049,12 @@ function Library:CreateWindow(...)
             Library:Notify("Discord link copied to clipboard!", 2)
 
             -- Toggle UI visibility
-            isUIVisible = not isUIVisible
-            for _, child in ipairs(ScreenGui:GetChildren()) do
-                if child ~= CircularIcon then
-                    child.Visible = isUIVisible
-                end
+            if isUIVisible then
+                HideUI()
+            else
+                ShowUI()
             end
+            isUIVisible = not isUIVisible
         end)
     end
 
