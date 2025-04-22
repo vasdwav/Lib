@@ -1599,7 +1599,7 @@ do
 
     function Funcs:AddDivider()
         local Groupbox = self;
-        local Container = Groupbox.Container
+        local Container = self.Container
 
         local Divider = {
             Type = 'Divider',
