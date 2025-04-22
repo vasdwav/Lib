@@ -2672,6 +2672,25 @@ do
         return Depbox;
     end;
 
+    function Funcs:AddImage(ImageId, Size, Position)
+        local Groupbox = self;
+        local Container = Groupbox.Container;
+
+        local Image = Library:Create('ImageLabel', {
+            BackgroundTransparency = 1;
+            Image = ImageId; -- The asset ID of the image
+            Size = Size or UDim2.new(0, 100, 0, 100); -- Default size
+            Position = Position or UDim2.new(0, 0, 0, 0); -- Default position
+            ZIndex = 5;
+            Parent = Container;
+        });
+
+        Groupbox:AddBlank(5); -- Add spacing below the image
+        Groupbox:Resize();
+
+        return Image;
+    end;
+
     BaseGroupbox.__index = Funcs;
     BaseGroupbox.__namecall = function(Table, Key, ...)
         return Funcs[Key](...);
@@ -3020,27 +3039,6 @@ function Library:CreateWindow(...)
             BackgroundTransparency = 1,
             ZIndex = 100, -- Ensure it appears above other UI elements
             Parent = ScreenGui,
-        })
-
-        -- Add another image with a label
-        local DiscordImage = Library:Create('ImageLabel', {
-            Image = "rbxassetid://1234567890", -- Replace with your image asset ID
-            Size = UDim2.new(0, 200, 0, 50), -- Adjust size as needed
-            Position = UDim2.new(0, 70, 0, 10), -- Adjust position as needed
-            BackgroundTransparency = 1,
-            ZIndex = 15, -- Set ZIndex to 15
-            Parent = ScreenGui,
-        })
-
-        local DiscordLabel = Library:CreateLabel({
-            Text = "Join our Discord for updates",
-            Size = UDim2.new(1, 0, 1, 0),
-            Position = UDim2.new(0, 0, 0, 0),
-            TextSize = 14,
-            TextColor3 = Color3.fromRGB(255, 255, 255),
-            BackgroundTransparency = 1,
-            ZIndex = 15, -- Match ZIndex with the image
-            Parent = DiscordImage,
         })
 
         -- Make the icon circular
