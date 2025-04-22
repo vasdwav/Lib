@@ -3014,10 +3014,10 @@ function Library:CreateWindow(...)
         local Icon = Library:GetIcon(Config.Icon)
         local IconImage = Library:Create('ImageButton', { -- Changed to ImageButton for click functionality
             Image = Icon,
-            Size = UDim2.new(0, 100, 0, 100), -- Increased size
+            Size = UDim2.new(0, 5, 0, 5), -- Increased size
             Position = UDim2.new(0, 5, 0, 2),
             BackgroundTransparency = 0.1,
-            ZIndex = 3,
+            ZIndex = 1,
             Parent = Outer,
         })
 
