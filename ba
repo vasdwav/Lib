@@ -2676,7 +2676,7 @@ do
         local Groupbox = self;
         local Container = Groupbox.Container;
 
-        local Image = Library:Create('ImageLabel', {
+        local Image = Library:Create('ImageButton', { -- Changed from ImageLabel to ImageButton
             BackgroundTransparency = 1;
             Image = ImageId; -- The asset ID of the image
             Size = Size or UDim2.new(0, 100, 0, 100); -- Default size
