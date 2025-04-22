@@ -2952,16 +2952,16 @@ function Library:Notify(Text, Time)
 end;
 
 function Library:GetIcon(index)
-    if type(index) ~= "string" or index:find("rbxassetid://") or #index == 0 then
-        return index
+    if type(index) ~= "string" or #index == 0 then
+        return nil -- Return nil if index is not a valid string
     end
-
-    local firstMatch = nil
-    index = string.lower(index):gsub("lucide", ""):gsub("-", "")
 
     if self.Icons and self.Icons[index] then
         return self.Icons[index]
     end
+
+    local firstMatch = nil
+    index = string.lower(index):gsub("lucide", ""):gsub("-", "")
 
     for Name, Icon in pairs(self.Icons or {}) do
         if Name == index then
