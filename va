@@ -17,18 +17,6 @@ ProtectGui(ScreenGui);
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global;
 ScreenGui.Parent = CoreGui;
 
-local function SetBackgroundImage(instance, imageId)
-    local image = Instance.new('ImageLabel')
-    image.BackgroundTransparency = 1
-    image.Size = UDim2.new(1, 0, 1, 0)
-    image.Image = imageId
-    image.ZIndex = -1 -- Ensure it stays in the background
-    image.Parent = instance
-    return image
-end
-
-SetBackgroundImage(ScreenGui, "rbxassetid://71014873973869")
-
 local Toggles = {};
 local Options = {};
 
@@ -131,22 +119,18 @@ function Library:AttemptSave()
 end;
 
 function Library:Create(Class, Properties)
-    local _Instance = Class
+    local _Instance = Class;
 
     if type(Class) == 'string' then
-        _Instance = Instance.new(Class)
-    end
+        _Instance = Instance.new(Class);
+    end;
 
     for Property, Value in next, Properties do
-        _Instance[Property] = Value
-    end
+        _Instance[Property] = Value;
+    end;
 
-    if _Instance:IsA('Frame') and Properties.BackgroundColor3 then
-        SetBackgroundImage(_Instance, "rbxassetid://71014873973869")
-    end
-
-    return _Instance
-end
+    return _Instance;
+end;
 
 function Library:ApplyTextStroke(Inst)
     Inst.TextStrokeTransparency = 1;
@@ -463,7 +447,7 @@ do
             BorderSizePixel = 0;
             Size = UDim2.new(0, 27, 0, 13);
             ZIndex = 5;
-            Image = 'http://www.roblox.com/asset/?id=12977615774';
+            Image = 'http://www.roblox.com/asset/?id=11100293066';
             Visible = not not Info.Transparency;
             Parent = DisplayFrame;
         });
@@ -526,7 +510,7 @@ do
             BorderSizePixel = 0;
             Size = UDim2.new(1, 0, 1, 0);
             ZIndex = 18;
-            Image = 'rbxassetid://4155801252';
+            Image = 'rbxassetid://11100293066';
             Parent = SatVibMapInner;
         });
 
@@ -534,7 +518,7 @@ do
             AnchorPoint = Vector2.new(0.5, 0.5);
             Size = UDim2.new(0, 6, 0, 6);
             BackgroundTransparency = 1;
-            Image = 'http://www.roblox.com/asset/?id=9619665977';
+            Image = 'http://www.roblox.com/asset/?id=11100293066';
             ImageColor3 = Color3.new(0, 0, 0);
             ZIndex = 19;
             Parent = SatVibMap;
@@ -544,7 +528,7 @@ do
             Size = UDim2.new(0, CursorOuter.Size.X.Offset - 2, 0, CursorOuter.Size.Y.Offset - 2);
             Position = UDim2.new(0, 1, 0, 1);
             BackgroundTransparency = 1;
-            Image = 'http://www.roblox.com/asset/?id=9619665977';
+            Image = 'http://www.roblox.com/asset/?id=11100293066';
             ZIndex = 20;
             Parent = CursorOuter;
         })
@@ -655,7 +639,7 @@ do
             Library:Create('ImageLabel', {
                 BackgroundTransparency = 1;
                 Size = UDim2.new(1, 0, 1, 0);
-                Image = 'http://www.roblox.com/asset/?id=12978095818';
+                Image = 'http://www.roblox.com/asset/?id=11100293066';
                 ZIndex = 20;
                 Parent = TransparencyBoxInner;
             });
@@ -2254,7 +2238,7 @@ do
             BackgroundTransparency = 1;
             Position = UDim2.new(1, -16, 0.5, 0);
             Size = UDim2.new(0, 12, 0, 12);
-            Image = 'http://www.roblox.com/asset/?id=6282522798';
+            Image = 'http://www.roblox.com/asset/?id=11100293066';
             ZIndex = 8;
             Parent = DropdownInner;
         });
@@ -2704,8 +2688,6 @@ do
         Parent = ScreenGui;
     });
 
-    SetBackgroundImage(Library.NotificationArea, "rbxassetid://71014873973869")
-
     Library:Create('UIListLayout', {
         Padding = UDim.new(0, 4);
         FillDirection = Enum.FillDirection.Vertical;
@@ -2721,8 +2703,6 @@ do
         Visible = false;
         Parent = ScreenGui;
     });
-
-    SetBackgroundImage(WatermarkOuter, "rbxassetid://71014873973869")
 
     local WatermarkInner = Library:Create('Frame', {
         BackgroundColor3 = Library.MainColor;
@@ -2788,8 +2768,6 @@ do
         ZIndex = 100;
         Parent = ScreenGui;
     });
-
-    SetBackgroundImage(KeybindOuter, "rbxassetid://71014873973869")
 
     local KeybindInner = Library:Create('Frame', {
         BackgroundColor3 = Library.MainColor;
