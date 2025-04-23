@@ -2991,7 +2991,8 @@ function Library:CreateWindow(...)
         Parent = ScreenGui;
     });
 
-    Library.Holder = Outer
+    Library.Holder = Outer; -- Ensure Library.Holder is assigned here
+
     Library:MakeDraggable(Outer, 25);
 
     local Inner = Library:Create('Frame', {
@@ -3012,7 +3013,7 @@ function Library:CreateWindow(...)
         local Icon = Library:GetIcon(Config.Icon)
         local CircularIcon = Library:Create('ImageButton', {
             Image = Icon,
-            Size = UDim2.new(0, 500, 0, 500), -- Adjust size as needed
+            Size = UDim2.new(0, 100, 0, 100), -- Updated size to 100x100
             Position = UDim2.new(0, 10, 0, 10), -- Top-left corner with padding
             BackgroundTransparency = 1,
             ZIndex = 100, -- Ensure it appears above other UI elements
@@ -3023,10 +3024,18 @@ function Library:CreateWindow(...)
         local UICorner = Instance.new("UICorner", CircularIcon)
         UICorner.CornerRadius = UDim.new(1, 0) -- Fully circular
 
-        -- Add click functionality to toggle UI visibility
+        -- Add click functionality to toggle UI visibility and copy the Discord link
         CircularIcon.MouseButton1Click:Connect(function()
-            if Library.Holder then
-                Library.Holder.Visible = not Library.Holder.Visible
+            setclipboard("https://discord.gg/xkYzren9AF") -- Replace with your Discord link
+            Library:Notify("Discord link copied to clipboard!", 2)
+
+            -- Toggle UI visibility
+            if Library.Holder.Visible then
+                Library.Holder.Visible = false
+                Library.NoUI = true
+            else
+                Library.Holder.Visible = true
+                Library.NoUI = false
             end
         end)
 
