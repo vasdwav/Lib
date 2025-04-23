@@ -2991,6 +2991,7 @@ function Library:CreateWindow(...)
         Parent = ScreenGui;
     });
 
+    Library.Holder = Outer;
     Library:MakeDraggable(Outer, 25);
 
     local Inner = Library:Create('Frame', {
