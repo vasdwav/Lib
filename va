@@ -2568,7 +2568,7 @@ do
                 end
             end
         elseif type(Info.Default) == 'number' and Dropdown.Values[Info.Default] ~= nil then
-            table.insert(Defaults, Idx)
+            table.insert(Defaults, Info.Default)
         end
 
         if next(Defaults) then
@@ -2931,7 +2931,6 @@ function Library:Notify(Text, Time)
         NotifyOuter:Destroy();
     end);
 end;
-
 function Library:GetIcon(index)
     if type(index) ~= "string" or index:find("rbxassetid://") or #index == 0 then
         return index
@@ -2954,7 +2953,6 @@ function Library:GetIcon(index)
 
     return firstMatch or index
 end
-
 function Library:CreateWindow(...)
     local Arguments = { ... }
     local Config = { AnchorPoint = Vector2.zero }
@@ -2968,7 +2966,7 @@ function Library:CreateWindow(...)
 
     if type(Config.Title) ~= 'string' then Config.Title = 'No title' end
     if type(Config.TabPadding) ~= 'number' then Config.TabPadding = 0 end
-    if type(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 1 end
+    if type(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 0.2 end
 
     if typeof(Config.Position) ~= 'UDim2' then Config.Position = UDim2.fromOffset(175, 50) end
     if typeof(Config.Size) ~= 'UDim2' then Config.Size = UDim2.fromOffset(550, 600) end
@@ -2993,7 +2991,6 @@ function Library:CreateWindow(...)
         Parent = ScreenGui;
     });
 
-    Library.Holder = Outer; -- Ensure Library.Holder is assigned here
     Library:MakeDraggable(Outer, 25);
 
     local Inner = Library:Create('Frame', {
@@ -3010,7 +3007,6 @@ function Library:CreateWindow(...)
         BackgroundColor3 = 'MainColor';
         BorderColor3 = 'AccentColor';
     });
-
     if Config.Icon then
         local Icon = Library:GetIcon(Config.Icon)
         local CircularIcon = Library:Create('ImageButton', {
@@ -3073,7 +3069,6 @@ function Library:CreateWindow(...)
             end
         end)
     end
-
     local WindowLabel = Library:CreateLabel({
         Position = UDim2.new(0, Config.Icon and 30 or 7, 0, 0);
         Size = UDim2.new(0, 0, 0, 25);
@@ -3082,6 +3077,7 @@ function Library:CreateWindow(...)
         ZIndex = 1;
         Parent = Inner;
     });
+
 
     local MainSectionOuter = Library:Create('Frame', {
         BackgroundColor3 = Library.BackgroundColor;
