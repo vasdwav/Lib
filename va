@@ -3013,12 +3013,14 @@ function Library:CreateWindow(...)
         local Icon = Library:GetIcon(Config.Icon)
         local CircularIcon = Library:Create('ImageButton', {
             Image = Icon,
-            Size = UDim2.new(0, 10000, 0, 10000), -- Updated size to 100x100
+            Size = UDim2.new(0, 100, 0, 100), -- Explicitly set size to 100x100
             Position = UDim2.new(0, 10, 0, 10), -- Top-left corner with padding
             BackgroundTransparency = 1,
             ZIndex = 100, -- Ensure it appears above other UI elements
             Parent = ScreenGui,
         })
+
+        CircularIcon.Size = UDim2.new(0, 100, 0, 100) -- Reapply size to ensure it takes effect
 
         -- Make the icon circular
         local UICorner = Instance.new("UICorner", CircularIcon)
